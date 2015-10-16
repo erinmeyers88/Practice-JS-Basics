@@ -1,19 +1,19 @@
 //Once you complete a problem, open up Chrome and check the answer in the console.
 
-var outer = function(){
+var outer = function () {
   var name = 'Tyler';
-  return function(){
+  return function () {
     return 'The original name was ' + name;
   }
 }
 //Above you're given a function that returns another function which has a closure over the name variable.
 //Invoke outer saving the return value into another variable called 'inner'.
 
-  //Code Here
+var inner = outer();
 
 //Once you do that, invoke inner.
 
-  //Code Here
+inner();
 
 
 
@@ -21,9 +21,9 @@ var outer = function(){
 
 
 
-var callFriend = function(){
+var callFriend = function () {
   var friend = 'Jake';
-  function callF(number){
+  function callF(number) {
     return 'Calling ' + friend + ' at ' + number;
   }
   return callF;
@@ -32,7 +32,9 @@ var callFriend = function(){
 //Above you're given a callFriend function that returns another function.
 //Do what you need to do in order to call your function and get 'Calling Jake at 435-215-9248' in your console.
 
-  //Code Here
+var result = callFriend();
+
+result("435-215-9248");
 
 
 
@@ -44,25 +46,20 @@ var callFriend = function(){
   Write a function called makeCounter that makes the following code work properly.
 */
 
-  //Code Here
-  var count = makeCounter();
-  count() // 1
-  count() // 2
-  count() // 3
-  count() // 4
+function makeCounter() {
+  var x = 0;
+    return function () {
+      x = x + 1;
+      return x;
+    }
+  return x;
+};
 
-
-
-//Next Problem
-
-
-
-/*
-  Write a function that does something simple (console, alert, etc). Write a second function that accepts the first function as it's first parameter. The second function should return a new third function which, when invoked, invokes the first, original function that was passed in, but will only ever do so once.
-*/
-
-  //Code Here
-
+var count = makeCounter();
+count() // 1
+count() // 2
+count() // 3
+count() // 4
 
 
 //Next Problem
@@ -70,10 +67,42 @@ var callFriend = function(){
 
 
 /*
-  Now, similar to the last problem, write a function called 'fnCounter' that accepts two parameters. The first parameter will be an anonymous function and the second parameter, 'N', will be a number. Now, in 'fnCounter', allow the anonymous funciton to be invoked 'N' number of times. After it's been invoked 'N' number of times, return 'STOP'.
+  Write a function that does something simple (console, alert, etc). 
+  Write a second function that accepts the first function as it's first parameter. 
+  The second function should return a new third function which, when invoked, invokes the first, 
+  original function that was passed in, but will only ever do so once.
 */
 
+function myFunction() {
+  console.log("Hi!")
+}
 
+function bigFunction(parameter) {
+  return function () {
+    myFunction();
+  }
+}
+
+bigFunction(myFunction());
+
+
+//Next Problem
+
+
+
+/*
+  Now, similar to the last problem, write a function called 'fnCounter' that accepts two parameters. 
+  The first parameter will be an anonymous function and the second parameter, 'N', will be a number. 
+  Now, in 'fnCounter', allow the anonymous funciton to be invoked 'N' number of times. 
+  After it's been invoked 'N' number of times, return 'STOP'.
+*/
+
+function fnCounter(anon, N) {
+  for (i = 0, i < N, i++) {
+    anon();
+  }
+  return "STOP";
+}
 
 //Next Problem
 
@@ -87,28 +116,35 @@ var callFriend = function(){
       }, i*1000 );
     }
   };
+  counter();
 
-  Above you have a function named counter. Examine the function (without running the code) then below write what you expect to happen when the funciton is invoked. *Hint: setTimeout calls a function or evaluates an expression after a specified number of milliseconds.
+  Above you have a function named counter. 
+  Examine the function (without running the code) then below write what you expect to happen when the funciton is invoked. 
+  *Hint: setTimeout calls a function or evaluates an expression after a specified number of milliseconds.
 
-    //Answer Here
+    The function will count every second up to 5 seconds.
 
 
   Now, run the function in your console and note what happpens.
 
   Was your answer right or wrong?
 
-    //Answer Here
-
+    Wrong, it wrote 6 and the browser showed 5 seconds elapsing.
 
   Fix the counter function so that it works the way you expect it to work. (logging 1 then 2 then 3, etc)
 */
 
-    //Code Here
-
+var counter = function(){
+    for (var i=1; i<=5; i++) {
+      setTimeout( function timer(num){
+          console.log( num );
+      }, i*1000, i );
+    }
+  };
+  counter();
 
 
 //Next Problem
-
 
 
 /*
